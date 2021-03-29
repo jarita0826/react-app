@@ -13,13 +13,18 @@ import BottomNav from "./components/BottomNav";
 //   );
 // }
 
-function ChatBox({ image, message }) {
+function ChatBox({ image, message, right }) {
+  const elements = [
+    <img className="rounded-full h-8 w-8" src={image} alt="lorem" />,
+    <div className="text-sm bg-gray-200 px-4 py-2">
+      <p>{message}</p>
+    </div>
+  ]
   return (
-    <div>
-      <img src={image} alt="lorem" />
-      <p>
-        {message}
-      </p>
+    <div className="flex space-x-4 p-4">{
+      right ? elements.reverse() : elements
+    }
+
     </div>
   )
 }
@@ -36,50 +41,9 @@ function ChatRoom() {
     }
   ]
   return (
-    <div>
-      {
-        messages.map((msg) => {
-          <ChatBox image={msg.image} message={msg.message} />
-        })
-      }
-    </div>
-  )
-}
-
-function ChatRoom({ image, username, message }) {
-  return (
-    <div className="flex space-x-4 p-4">
-      <img className="rounded-full h-16 w-16" src={image} alt="lorem" />
-      <div className="text-sm">
-        <h3 className="font-bold">{username}</h3>
-        <p>{message}</p>
-      </div>
-    </div>
-  )
-}
-
-export default function Main() {
-  const rooms = [
-    {
-      image: "https://picsum.photos/id/237/200",
-      username: "James",
-      message: "Thank you! That was very helpful!"
-    },
-    {
-      image: "https://picsum.photos/id/237/200",
-      username: "James",
-      message: "Thank you! That was very helpful!"
-    },
-    {
-      image: "https://picsum.photos/id/237/200",
-      username: "James",
-      message: "Thank you! That was very helpful!"
-    }
-  ]
-  return (
-    <div className="divide-y">
-      {rooms.map((room) => (
-        <ChatRoom image={room.image} username={room.username} message={room.message} />
+    <div className="">
+      {messages.map((message, index) => (
+        <ChatBox image={message.image} message={message.message} right={index % 2} />
       ))}
     </div>
   )
