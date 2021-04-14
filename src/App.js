@@ -1,7 +1,7 @@
 import Header from "./components/Header";
 // import Chat from "./components/ChatRoom";
 import BottomNav from "./components/BottomNav";
-
+import { useState } from "react";
 
 // function App() {
 //   return (
@@ -29,17 +29,8 @@ function ChatBox({ image, message, right }) {
   )
 }
 
-function ChatRoom() {
-  const messages = [
-    {
-      image: "https://picsum.photos/id/237/200",
-      message: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    },
-    {
-      image: "https://picsum.photos/id/237/200",
-      message: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    }
-  ]
+function ChatRoom({ messages }) {
+
   return (
     <div className="">
       {messages.map((message, index) => (
@@ -51,11 +42,30 @@ function ChatRoom() {
 
 
 function App() {
+  const [messages, setMessages] = useState(
+    [
+      {
+        image: "https://picsum.photos/id/237/200",
+        message: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
+      },
+      {
+        image: "https://picsum.photos/id/237/200",
+        message: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
+      }
+    ])
   return (
     <div>
       <Header title="James" />
-      <ChatRoom />
-      <BottomNav />
+      <ChatRoom messages={messages} />
+      <BottomNav onPlusClick={() => {
+        setMessages([
+          ...messages,
+          {
+            image: "https://picsum.photos/id/237/200",
+            message: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
+          }
+        ])
+      }} />
     </div>
   );
 }
